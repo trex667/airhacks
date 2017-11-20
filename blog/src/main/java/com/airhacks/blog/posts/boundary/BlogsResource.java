@@ -4,6 +4,7 @@ package com.airhacks.blog.posts.boundary;
 import com.airhacks.TimeoutHandler;
 import com.airhacks.blog.posts.entity.Blog;
 import com.airhacks.blog.posts.entity.Post;
+import com.airhacks.logging.boundary.ALogger;
 import com.airhacks.porcupine.execution.boundary.Dedicated;
 import java.net.URI;
 import java.util.Arrays;
@@ -43,9 +44,13 @@ public class BlogsResource {
     @Dedicated
     ExecutorService mes;
 
+    @Inject
+    ALogger LOG;
+
     @GET
     @Produces({"highly/optimized", "application/json"})
     public void blogs(@Suspended AsyncResponse response) {
+        LOG.log("BlogsResource", "invoked");
         response.setTimeout(500, TimeUnit.MILLISECONDS);
         response.setTimeoutHandler(TimeoutHandler::handle);
         supplyAsync(this::getBlogs, mes).thenAccept(response::resume);
