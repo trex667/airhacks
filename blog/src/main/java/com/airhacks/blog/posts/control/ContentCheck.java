@@ -2,6 +2,10 @@
 package com.airhacks.blog.posts.control;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.ConcurrencyManagement;
+import javax.ejb.ConcurrencyManagementType;
+import javax.ejb.Singleton;
+import javax.interceptor.Interceptors;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
@@ -12,6 +16,9 @@ import javax.ws.rs.core.Response;
  *
  * @author airhacks.com
  */
+@Interceptors(CircuitBreaker.class)
+@Singleton
+@ConcurrencyManagement(ConcurrencyManagementType.BEAN)
 public class ContentCheck {
 
     private Client client;
