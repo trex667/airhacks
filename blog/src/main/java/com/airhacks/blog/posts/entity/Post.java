@@ -25,6 +25,9 @@ public class Post {
                 build();
     }
 
+    public boolean containsString(String content) {
+        return this.title.contains(content) || this.content.contains(content);
+    }
 
 
 }

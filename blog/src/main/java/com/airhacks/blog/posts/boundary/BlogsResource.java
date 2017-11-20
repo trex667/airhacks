@@ -1,7 +1,6 @@
 
 package com.airhacks.blog.posts.boundary;
 
-import com.airhacks.blog.posts.entity.Post;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.json.Json;
@@ -15,17 +14,18 @@ import javax.ws.rs.Path;
  * @author airhacks.com
  */
 @Stateless
-@Path("posts")
-public class PostsResource {
+@Path("blogs")
+public class BlogsResource {
 
     @Inject
-    PostsService service;
+    BlogsService service;
 
     @GET
-    public JsonArray posts() {
+    public JsonArray blogs() {
         JsonArrayBuilder retVal = Json.createArrayBuilder();
-        service.allPosts().
-                stream().map(Post::toJson).
+        service.allBlogs().
+                stream().
+                map(b -> b.toJsonWithContent("")).
                 forEach(retVal::add);
         return retVal.build();
     }
