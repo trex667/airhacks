@@ -16,10 +16,17 @@ public class Blog {
     private String uri;
     private List<Post> posts;
 
+    public Blog(JsonObject input) {
+        this.name = input.getString("name");
+        this.uri = input.getString("uri");
+    }
+
+
     public Blog(String name, String uri, List<Post> posts) {
         this.name = name;
         this.uri = uri;
         this.posts = posts;
+
     }
 
     public JsonObject toJsonWithContent(String content) {
