@@ -44,6 +44,7 @@ public class BlogsResource {
     ExecutorService mes;
 
     @GET
+    @Produces({"highly/optimized", "application/json"})
     public void blogs(@Suspended AsyncResponse response) {
         response.setTimeout(500, TimeUnit.MILLISECONDS);
         response.setTimeoutHandler(TimeoutHandler::handle);
