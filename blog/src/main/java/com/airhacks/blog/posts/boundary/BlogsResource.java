@@ -4,15 +4,13 @@ package com.airhacks.blog.posts.boundary;
 import com.airhacks.TimeoutHandler;
 import com.airhacks.blog.posts.entity.Blog;
 import com.airhacks.blog.posts.entity.Post;
+import com.airhacks.porcupine.execution.boundary.Dedicated;
 import java.net.URI;
 import java.util.Arrays;
 import static java.util.concurrent.CompletableFuture.supplyAsync;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.annotation.Resource;
 import javax.ejb.Stateless;
-import javax.enterprise.concurrent.ManagedExecutorService;
 import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonArray;
@@ -41,12 +39,13 @@ public class BlogsResource {
     @Inject
     BlogsService service;
 
-    @Resource
-    ManagedExecutorService mes;
+    @Inject
+    @Dedicated
+    ExecutorService mes;
 
     @GET
     public void blogs(@Suspended AsyncResponse response) {
-        response.setTimeout(1, TimeUnit.NANOSECONDS);
+        response.setTimeout(500, TimeUnit.MILLISECONDS);
         response.setTimeoutHandler(TimeoutHandler::handle);
         supplyAsync(this::getBlogs, mes).thenAccept(response::resume);
 
@@ -54,11 +53,6 @@ public class BlogsResource {
 
 
     public JsonArray getBlogs() {
-        try {
-            Thread.sleep(200);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(BlogsResource.class.getName()).log(Level.SEVERE, null, ex);
-        }
 
         JsonArrayBuilder retVal = Json.createArrayBuilder();
         service.allBlogs().
