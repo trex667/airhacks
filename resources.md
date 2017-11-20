@@ -12,3 +12,5 @@ https://tools.ietf.org/html/rfc7231#page-25
 https://mozilla.github.io/pdf.js/
 https://developers.google.com/web/updates/2017/04/headless-chrome
 https://www.idrsolutions.com/online-pdf-to-html5-converter/
+https://github.com/AdamBien/porcupine
+https://github.com/EsotericSoftware/kryo
