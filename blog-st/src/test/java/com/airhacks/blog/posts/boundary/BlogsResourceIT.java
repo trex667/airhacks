@@ -21,7 +21,7 @@ import org.junit.Test;
  *
  * @author airhacks.com
  */
-public class BlogsResource {
+public class BlogsResourceIT {
     
     private Client client;
     private WebTarget tut;
@@ -46,8 +46,11 @@ public class BlogsResource {
                 add("name", "testname").
                 add("uri", "http://test.name").
                 build();
-        Response response = this.tut.request().post(Entity.json(blog));
+        Response response = this.tut.request(MediaType.TEXT_PLAIN).post(Entity.json(blog));
         assertThat(response.getStatus(), is(201));
+        String additionalInformation = response.readEntity(String.class);
+        assertNotNull(additionalInformation);
+        System.out.println("additionalInformation = " + additionalInformation);
         String locationHeader = response.getHeaderString("Location");
         assertNotNull(locationHeader);
         System.out.println("locationHeader = " + locationHeader);

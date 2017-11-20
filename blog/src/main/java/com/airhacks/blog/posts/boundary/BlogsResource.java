@@ -15,7 +15,9 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
@@ -42,17 +44,20 @@ public class BlogsResource {
 
     @GET
     @Path("{name}")
-    public JsonObject blog(@PathParam("name") String name) {
-        return new Blog("generated", name, Arrays.asList(new Post("adsf", "adf"))).toJsonWithContent("a");
+    public Response blog(@PathParam("name") String name) {
+        return Response.ok(new Blog("generated", name, Arrays.asList(new Post("adsf", "adf"))).toJsonWithContent("a")).
+                header("posts-ids", "[2,3,4]").
+                build();
     }
 
 
     @POST
+    @Produces(MediaType.TEXT_PLAIN)
     public Response createBlog(JsonObject blog, @Context UriInfo info) {
         URI uri = info.getAbsolutePathBuilder().
                 path("/" + System.currentTimeMillis()).
                 build();
-        return Response.created(uri).build();
+        return Response.created(uri).entity("zusatz info").build();
 
     }
 
