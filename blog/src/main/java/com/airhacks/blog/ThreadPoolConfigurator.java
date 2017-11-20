@@ -5,6 +5,7 @@ import com.airhacks.porcupine.configuration.control.ExecutorConfigurator;
 import com.airhacks.porcupine.execution.control.ExecutorConfiguration;
 import java.util.concurrent.ThreadPoolExecutor;
 import javax.enterprise.inject.Specializes;
+import javax.inject.Inject;
 
 /**
  *
@@ -13,6 +14,9 @@ import javax.enterprise.inject.Specializes;
 @Specializes
 public class ThreadPoolConfigurator extends ExecutorConfigurator {
 
+    @Inject
+    Integer maxPoolSize;
+
     @Override
     public ExecutorConfiguration forPipeline(String name) {
         if ("mes".equalsIgnoreCase(name)) {
@@ -20,7 +24,7 @@ public class ThreadPoolConfigurator extends ExecutorConfigurator {
                     callerRunsPolicy().
                     customRejectedExecutionHandler(this::rejectedExecution).
                     corePoolSize(1).
-                    maxPoolSize(1).
+                    maxPoolSize(maxPoolSize).
                     queueCapacity(1).
                     build();
         }
