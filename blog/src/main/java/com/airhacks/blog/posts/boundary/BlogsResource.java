@@ -75,6 +75,8 @@ public class BlogsResource {
     @POST
     @Produces(MediaType.TEXT_PLAIN)
     public Response createBlog(JsonObject blog, @Context UriInfo info) {
+        this.service.create(blog);
+
         URI uri = info.getAbsolutePathBuilder().
                 path("/" + System.currentTimeMillis()).
                 build();

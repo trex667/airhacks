@@ -1,7 +1,6 @@
 
 package com.airhacks.configurator.control;
 
-import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
 
 /**
@@ -10,7 +9,7 @@ import javax.enterprise.inject.spi.InjectionPoint;
  */
 public class Configurator {
 
-    @Produces
+    //@Produces
     public Integer number(InjectionPoint ip) {
         String name = ip.getMember().getName();
         String number = getValue(name, "-1");
