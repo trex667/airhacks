@@ -30,6 +30,8 @@ public class ContentCheck {
         this.validationURI = this.client.target("http://localhost:8080/content-check/resources/validation");
     }
 
+    //@MaxTime(2000)
+    //@MaxExceptions(2)
     public String isValid(String content) {
         Response response = this.validationURI.request().post(Entity.text(content));
         return response.readEntity(String.class);
