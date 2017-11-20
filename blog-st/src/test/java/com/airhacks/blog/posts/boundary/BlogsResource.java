@@ -52,6 +52,12 @@ public class BlogsResource {
         assertNotNull(locationHeader);
         System.out.println("locationHeader = " + locationHeader);
 
+        Response fetchResponse = this.client.target(locationHeader).request().get();
+        assertThat(fetchResponse.getStatus(), is(200));
+        JsonObject blogAsJson = fetchResponse.readEntity(JsonObject.class);
+        assertNotNull(blogAsJson);
+        System.out.println("blogAsJson = " + blogAsJson);
+
     }
 
 
