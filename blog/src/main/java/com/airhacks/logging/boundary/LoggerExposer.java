@@ -1,7 +1,7 @@
 
 package com.airhacks.logging.boundary;
 
-import com.sun.istack.internal.logging.Logger;
+import java.util.logging.Logger;
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
 
@@ -15,7 +15,7 @@ public class LoggerExposer {
     public ALogger expose(InjectionPoint ip) {
 
         Class<?> clazz = ip.getMember().getDeclaringClass();
-        return (component, content) -> Logger.getLogger(clazz).info(component + content);
+        return (component, content) -> Logger.getLogger(clazz.getName()).info(component + content);
 
     }
 
