@@ -15,7 +15,7 @@ public class LoggerExposer {
     public ALogger expose(InjectionPoint ip) {
 
         Class<?> clazz = ip.getMember().getDeclaringClass();
-        return (component, content) -> Logger.getLogger(clazz.getName()).info(component + content);
+        return (component, content) -> Logger.getLogger(clazz.getName()).info(String.format("[%s] %s", component, content));
 
     }
 

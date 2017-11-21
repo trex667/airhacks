@@ -63,7 +63,7 @@ public class BlogsResource {
         JsonArrayBuilder retVal = Json.createArrayBuilder();
         service.allBlogs().
                 stream().
-                map(b -> b.toJsonWithContent("")).
+                map(b -> b.toJson()).
                 forEach(retVal::add);
         return retVal.build();
     }
@@ -72,7 +72,7 @@ public class BlogsResource {
     @GET
     @Path("{name}")
     public Response blog(@PathParam("name") String name) {
-        return Response.ok(new Blog("generated", name, Arrays.asList(new Post("adsf", "adf"))).toJsonWithContent("a")).
+        return Response.ok(new Blog("generated", name, Arrays.asList(new Post("adsf", "adf"))).toJson()).
                 header("posts-ids", "[2,3,4]").
                 build();
     }

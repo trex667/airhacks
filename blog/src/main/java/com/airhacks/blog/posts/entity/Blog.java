@@ -29,14 +29,13 @@ public class Blog {
 
     }
 
-    public JsonObject toJsonWithContent(String content) {
+    public JsonObject toJson() {
 
         JsonArrayBuilder postsAsJson = Json.createArrayBuilder();
         this.posts.
-                stream().
-                filter(f -> f.containsString("rest")).
-                map(Post::toJson).
-                forEach(postsAsJson::add);
+                stream()
+                .map(Post::toJson)
+                .forEach(postsAsJson::add);
 
         return Json.createObjectBuilder().
                 add("uri", this.uri).
