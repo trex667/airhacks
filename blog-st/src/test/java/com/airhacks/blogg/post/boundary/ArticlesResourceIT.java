@@ -38,8 +38,8 @@ public class ArticlesResourceIT {
 
     @Test
     public void crud() {
-        JsonObject articleExpected = Json.createObjectBuilder().add("title", "about testing").
-                add("content", "write STs to save time").
+        JsonObject articleExpected = Json.createObjectBuilder().add("title", "test").
+                add("content", "write test to save time").
                 build();
 
         Response postResponse = this.tut.request().post(json(articleExpected));
@@ -54,6 +54,19 @@ public class ArticlesResourceIT {
         JsonArray articlesAsJson = getResponse.readEntity(JsonArray.class);
         System.out.println("articlesAsJson = " + articlesAsJson);
         assertFalse(articlesAsJson.isEmpty());
+
+    }
+
+    @Test
+    public void createInvalidArticle() {
+        JsonObject articleExpected = Json.createObjectBuilder().add("title", "does not exist").
+                add("content", "write test to save time").
+                build();
+
+        Response postResponse = this.tut.request().post(json(articleExpected));
+        assertThat(postResponse.getStatus(), is(400));
+        String reason = postResponse.getHeaderString("reason");
+        System.out.println("reason = " + reason);
 
     }
 
