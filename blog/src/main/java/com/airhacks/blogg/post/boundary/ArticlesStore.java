@@ -3,6 +3,7 @@ package com.airhacks.blogg.post.boundary;
 
 import com.airhacks.blogg.post.control.InMemoryStore;
 import com.airhacks.blogg.post.entity.Article;
+import com.airhacks.blogg.post.entity.InvalidArticleException;
 import java.util.Collection;
 import java.util.Optional;
 import javax.ejb.Stateless;
@@ -24,6 +25,9 @@ public class ArticlesStore {
 
 
     public void save(Article article) {
+        if (!article.isValid()) {
+            throw new InvalidArticleException("Article is not valid");
+        }
         this.store.store(article);
     }
 }

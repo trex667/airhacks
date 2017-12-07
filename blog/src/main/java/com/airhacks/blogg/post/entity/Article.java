@@ -25,6 +25,9 @@ public class Article {
         return id;
     }
 
+    public boolean isValid() {
+        return content.contains(title);
+    }
 
 
     public JsonObject toJSON() {
