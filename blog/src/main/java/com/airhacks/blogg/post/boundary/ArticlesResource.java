@@ -57,7 +57,9 @@ public class ArticlesResource {
     public Response save(JsonObject input, @Context UriInfo info) {
         Article article = new Article(input);
 
-        URI uri = info.getAbsolutePathBuilder().path("/" + article.getId()).build();
+        URI uri = info.getAbsolutePathBuilder().
+                path("/" + article.getId()).
+                build();
         this.store.save(article);
         return Response.created(uri).build();
     }
