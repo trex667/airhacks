@@ -1,15 +1,29 @@
 
 package com.airhacks.blogg.post.boundary;
 
+import com.airhacks.blogg.post.control.InMemoryStore;
 import com.airhacks.blogg.post.entity.Article;
-import java.util.Arrays;
-import java.util.List;
+import java.util.Collection;
+import java.util.Optional;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 
 @Stateless
 public class ArticlesStore {
 
-    public List<Article> articles() {
-        return Arrays.asList(new Article("a1", "duke"), new Article("a2", "fluke"));
+    @Inject
+    InMemoryStore store;
+
+    public Collection<Article> articles() {
+        return store.all();
+    }
+
+    public Optional<Article> get(String id) {
+        return this.store.get(id);
+    }
+
+
+    public void save(Article article) {
+        this.store.store(article);
     }
 }
