@@ -1,6 +1,7 @@
 
 package com.airhacks.blogg.post.entity;
 
+import com.airhacks.blogg.author.entity.Author;
 import java.util.UUID;
 import javax.json.Json;
 import javax.json.JsonObject;
@@ -11,10 +12,13 @@ public class Article {
     private String title;
     private String content;
 
+    private Author author;
+
     public Article(String title, String content) {
         this.id = UUID.randomUUID().toString();
         this.title = title;
         this.content = content;
+        this.author = new Author("duke");
     }
 
     public Article(JsonObject input) {
@@ -34,6 +38,7 @@ public class Article {
         return Json.createObjectBuilder().
                 add("title", this.title).
                 add("content", this.content).
+                add("authorid", this.author.getId()).
                 build();
     }
 
