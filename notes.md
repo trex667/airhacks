@@ -30,4 +30,12 @@ Implementierung von healthcheck REST endpoints für:
 ready: einfacher ping rest call, der verwendet werden kann, ob der microservice ready ist
 Healthcheck: rest endpoint, der wichtige informationen der konkreten app zurück gibt. Z.B. rent a bike app: wieviele Fahrräder sind gerade vermietet und wieviele sind frei, reserviert und so. Hier sollten auch die ping services von anderen Microservices die benutzt werden abgefragt werden, um zu sehen ob die ready sind.
 
- 
+
+caching
+vermeiden wenn es geht! Nur verwenden, um wirklich Daten nur zu cachen. Niemals darauf vertrauen, dass der cache da ist!
+Caches werden oft eingeführt, obwohl nicht notwendig oder noch nicht notwendig.
+Zuerst Stresstesten und dann cache einführen.
+Bei Rest calls in Verbindung mit revers proxies cache headers von http nutzen!! proxies haben meist sehr effiziente caches
+https://www.nginx.com/blog/nginx-caching-guide/
+Caches sind oft "toys of developers" und machen die App oft unnötig kompliziert. Bei eigenen impl. caches sogar oft langsamer!!
+
