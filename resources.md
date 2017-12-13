@@ -1,5 +1,6 @@
 #Resources
 
-https://github.com/EsotericSoftware/kryo
-https://github.com/RuedigerMoeller/fast-serialization
-http://www.oracle.com/technetwork/articles/java/jaxrs20-1929352.html
+https://httpd.apache.org/docs/2.4/programs/ab.html
+http://jmeter.apache.org
+http://tsung.erlang-projects.org
+https://github.com/AdamBien/docklands

@@ -1,7 +1,11 @@
 
 package com.airhacks.ping.boundary;
 
+import com.airhacks.ping.control.PingStore;
+import com.airhacks.ping.entity.Ping;
+import java.util.List;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 
 /**
  *
@@ -10,9 +14,16 @@ import javax.ejb.Stateless;
 @Stateless
 public class PingService {
 
-    public String all() {
-        throw new TodayNoPingException("the stack");
-        // return " message " + System.currentTimeMillis();
+    @Inject
+    PingStore store;
+
+    public List<Ping> all() {
+        return this.store.all();
     }
+
+    public void save(Ping ping) {
+        this.store.upsert(ping);
+    }
+
 
 }
